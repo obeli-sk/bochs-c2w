@@ -588,8 +588,12 @@ static int p9_flags_to_host(int flags)
 }
 
 static mode_t host_mode_to_p9(mode_t m) {
+#ifdef WASI
+    mode_t ret = 0555; // WASI Preview 1 filestat has no Unix permission bits.
+#else
     mode_t ret = 0;
     ret = m & 0700;
+#endif
     if (S_ISBLK(m)) {
       ret |= P9_S_IFDIR;
     } else if (S_ISCHR(m)) {
