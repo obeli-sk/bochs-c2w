@@ -502,9 +502,9 @@ int CDECL init_func(void);
 
 int init_vm(int argc, char **argv, FSVirtFile *info)
 {
-    info->contents = (char *)calloc(1024, sizeof(char));
+    info->contents = (char *)calloc(1024 * 1024, sizeof(char));
     info->len = 0;
-    info->lim = 1024;
+    info->lim = 1024 * 1024;
 
     /* const char *cmdline, *build_preload_file; */
     char *entrypoint = NULL, *net = NULL, *mac = NULL, *bundle = NULL;
